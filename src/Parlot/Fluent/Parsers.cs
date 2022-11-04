@@ -87,6 +87,11 @@ namespace Parlot.Fluent
         /// </summary>
         public static Parser<T> Empty<T>(T value) => new Empty<T>(value);
 
+        /// <summary>
+        /// Builds a parser that always succeeds.
+        /// </summary>
+        public static Parser<List<T>> Repeat<T>(Parser<T> parser, int count) => new Repeat<T>(parser, count);
+
     }
 
     public class LiteralBuilder

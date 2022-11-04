@@ -683,5 +683,14 @@ namespace Parlot.Tests
                 .TryParse(new ParseContext(new Scanner(" \nab"), useNewLines: true),
                 out var _, out var _));
         }
+
+        [Fact]
+        public void RepeatShouldWorkAsExpected()
+        {
+            Assert.True(Repeat(Terms.Char('a'), 3).TryParse("aaa", out var r1) && r1.Count == 3 && r1.TrueForAll(c=>c=='a'));
+            Assert.True(Repeat(Terms.Char('b'), 1).TryParse("b", out var r2) && r2.Count == 1 && r2.TrueForAll(c=>c=='b'));
+
+            Assert.False(Repeat(Terms.Char('c'), 19).TryParse("cccccccccc", out _));
+        }
     }
 }
