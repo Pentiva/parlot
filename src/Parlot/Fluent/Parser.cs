@@ -55,5 +55,10 @@ namespace Parlot.Fluent
         /// Builds a parser that discards the previous result and replaces it by the specified type or value.
         /// </summary>
         public Parser<U> Discard<U>(U value) => new Discard<T, U>(this, value);
+
+        /// <summary>
+        /// Builds a parser that matches the current parser, but not any of the parameter parsers.
+        /// </summary>
+        public Parser<T> Excluding<U>(params Parser<U>[] parsers) => new Excluding<T, U>(this, parsers);
     }
 }

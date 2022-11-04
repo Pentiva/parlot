@@ -633,5 +633,12 @@ namespace Parlot.Tests
 
             Assert.Equal(_email, result.ToString());
         }
+        
+        [Fact]
+        public void ShouldCompileExcluding()
+        {
+            Assert.True(Terms.Decimal().Excluding<char>(Terms.Char('2')).Compile().TryParse("123", out var r2) && r2 == 123);
+            Assert.False(Terms.Decimal().Excluding<char>(Terms.Char('1')).Compile().TryParse("abc", out _));
+        }
     }
 }
