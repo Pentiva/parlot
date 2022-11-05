@@ -687,15 +687,17 @@ namespace Parlot.Tests
         [Fact]
         public void ExcludingShouldWorkAsExpected()
         {
-            Assert.True(Terms.Decimal().TryParse("123", out var r1)                                  && r1 == 123);
-            Assert.True(Terms.Decimal().Excluding<char>(Terms.Char('2')).TryParse("123", out var r2) && r2 == 123);
-            Assert.True(Terms.Decimal().Excluding<char>(Terms.Char('2'), Terms.Char('3')).TryParse("123", out var r3) && r3 == 123);
+            Assert.True(Terms.Decimal().TryParse("123", out var r1)                            && r1 == 123);
+            Assert.True(Terms.Decimal().Excluding(Terms.Char('2')).TryParse("123", out var r2) && r2 == 123);
+            Assert.True(Terms.Decimal().Excluding(Terms.Char('2'), Terms.Char('3')).TryParse("123", out var r3) && r3 == 123);
 
-            Assert.False(Terms.Decimal().Excluding<char>(Terms.Char('1')).TryParse("abc", out _));
-            Assert.False(Terms.Decimal().Excluding<char>(Terms.Char('1')).TryParse("123", out _));
+            Assert.False(Terms.Decimal().Excluding(Terms.Char('1')).TryParse("abc", out _));
+            Assert.False(Terms.Decimal().Excluding(Terms.Char('1')).TryParse("123", out _));
 
-            Assert.False(Terms.Decimal().Excluding<TextSpan>(Terms.Pattern(c => c < '2')).TryParse("123", out _));
-            Assert.True(Terms.Decimal().Excluding<TextSpan>(Terms.Pattern(c => c < '2')).TryParse("345", out var r4) && r4 == 345);
+            Assert.False(Terms.Decimal().Excluding(Terms.Pattern(c => c < '2')).TryParse("123", out _));
+            Assert.True(Terms.Decimal().Excluding(Terms.Pattern(c => c < '2')).TryParse("345", out var r4) && r4 == 345);
+
+            Assert.False(OneOrMany(Terms.Pattern(char.IsDigit).Excluding(Terms.Char('2'))).TryParse("4124523", out var r5) && r5.Count == 5);
         }
     }
 }

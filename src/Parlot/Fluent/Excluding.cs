@@ -68,7 +68,7 @@ namespace Parlot.Fluent
             var end = context.DeclarePositionVariable(result);
 
             // success = true;
-            // value = _value;
+            // value = default(T);
             // start = context.Cursor.Position
             // end = context.Cursor.Position
 
